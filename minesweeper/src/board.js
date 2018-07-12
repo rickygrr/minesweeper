@@ -1,22 +1,4 @@
-class Game {
-    constructor (numberOfRows, numberOfColumns, numberOfBombs) {
-        this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
-    }
-    playMove(rowIndex, columnIndex) {
-        if (!this._board.hasSafeTiles()) {
-            console.log("You won!");
-        } else if (this._board.flipTile(rowIndex, columnIndex) === 'B') {
-            console.log("Game Over!");
-            this._board.print();
-        } else {
-            console.log("Current Board:");
-            this._board.print();
-        }
-    }
-
-}
-
-class Board {
+export class Board {
     constructor (numberOfRows, numberOfColumns, numberOfBombs) {
         this._numberOfRows = numberOfRows;
         this._numberOfColumns = numberOfColumns;
@@ -42,7 +24,7 @@ class Board {
     }
 
     getNumberOfNeighborBombs (rowIndex, columnIndex) {
-        neighborOffsets = [[-1, 1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+        const neighborOffsets = [[-1, 1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
         const numberOfRows = this._bombBoard.length;
         const numberOfColumns = this._bombBoard[0].length;
         let numberOfBombs = 0;
@@ -92,7 +74,7 @@ class Board {
         while (numberOfBombsPlaced < numberOfBombs) {
             let randomRowIndex = Math.floor(Math.random() * numberOfRows);
             let randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
-            if (board[randomRowIndex][randomColumnIndex] != 'B') {
+            if (board[randomRowIndex][randomColumnIndex] !== 'B') {
                 board[randomRowIndex][randomColumnIndex] = 'B';
                 numberOfBombsPlaced++;
             }
@@ -101,26 +83,3 @@ class Board {
     }
 
 }
-
-
-let g = new Game (3, 3, 3);
-g.playMove(0,0);
-
-
-
-
-/*
-
-let playerBoard = generatePlayerBoard(3, 4);
-let bombBoard = generateBombBoard(3, 4, 5);
-
-console.log("Player Board: ");
-printBoard(playerBoard);
-console.log("Bomb Board: ");
-printBoard(bombBoard);
-flipTile(playerBoard, bombBoard, 1, 1);
-console.log("Updated Player Board: ");
-printBoard(playerBoard);
-*/
-
-
